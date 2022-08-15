@@ -1,20 +1,19 @@
 const express = require('express')
 const router = express.Router()
-const createError = require('../utils/error')
 const {getAllUsers,getSingleUser, editUser, deleteUser} = require('../controllers/admin')
-
+const { verifyToken, verifyAdmin } = require('../utils/verifyToken')
 
 
 //getAllUser
-router.get('/users',getAllUsers)
+router.get('/users',verifyAdmin,getAllUsers)
 
 //getSingleUser
 router.get('/getUser/:id',getSingleUser)
 
 //editUser
-router.put('/editUser/:id', editUser)
+router.put('/editUser/:id',verifyAdmin, editUser)
 
 //deleteUser
-router.delete('/deleteUser/:id', deleteUser)
+router.delete('/deleteUser/:id',verifyAdmin, deleteUser)
 
 module.exports = router;

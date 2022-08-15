@@ -23,7 +23,7 @@ module.exports.editUser=async (req, res) => {
             { new: true }
         )
         res.status(200).json(updatedUser)
-    } catch (error) {
+    } catch (err) {
         next(err)
     }
 }
@@ -31,7 +31,7 @@ module.exports.deleteUser=async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id)
         res.status(200).json('User Deleted')
-    } catch (error) {
+    } catch (err) {
         next(err)
     }
 }

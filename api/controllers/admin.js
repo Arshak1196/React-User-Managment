@@ -3,6 +3,7 @@ const User = require('../models/user')
 module.exports.getAllUsers=async (req,res,next)=>{
     try {
         const Users = await User.find()
+        console.log(Users)
         res.status(200).json(Users)
     } catch (err) {
         next(err)
@@ -16,7 +17,7 @@ module.exports.getSingleUser=async(req,res,next)=>{
         next(err)
     }
 }
-module.exports.editUser=async (req, res) => {
+module.exports.editUser=async (req, res,next) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(req.params.id,
             { $set: req.body },
@@ -27,7 +28,7 @@ module.exports.editUser=async (req, res) => {
         next(err)
     }
 }
-module.exports.deleteUser=async (req, res) => {
+module.exports.deleteUser=async (req, res,next) => {
     try {
         await User.findByIdAndDelete(req.params.id)
         res.status(200).json('User Deleted')

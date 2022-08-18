@@ -5,7 +5,7 @@ const { verifyToken, verifyAdmin } = require('../utils/verifyToken')
 
 
 //getAllUser
-router.get('/users',verifyAdmin,getAllUsers)
+router.get('/users',getAllUsers) 
 
 //getSingleUser
 router.get('/getUser/:id',getSingleUser)

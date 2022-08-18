@@ -1,4 +1,5 @@
 const express = require('express');
+const cors=require('cors');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv')
@@ -27,13 +28,14 @@ mongoose.connection.on('disconnected', () => {
 })
 
 //middlewares
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
-
+ 
 //errorHandling
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;

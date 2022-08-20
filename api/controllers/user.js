@@ -2,6 +2,7 @@ const User = require('../models/user')
 const bcrypt = require('bcryptjs');
 const createError = require('../utils/error');
 const jwt = require('jsonwebtoken')
+const maxAge=3*24*60*60
 
 module.exports.doSignup = async (req, res, next) => {
     try {
@@ -16,6 +17,10 @@ module.exports.doSignup = async (req, res, next) => {
         await newUser.save()
         res.status(200).json('User created')
     } catch (err) {
+        if(err.code===11000){
+            err.message='Email or Mobile number is already registered'
+            return next(createError(400,err.message))
+        }
         next(err)
     }
 }
@@ -27,11 +32,15 @@ module.exports.doLogin = async (req, res, next) => {
         const isPasswordcorrect = await bcrypt.compare(req.body.password, user.password)
         if (!isPasswordcorrect)
             return next(createError(400, 'wrong password or username'))
-        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_KEY)
+        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_KEY,{
+            expiresIn:maxAge,
+        })
         const { password, isAdmin, ...otherDetails } = user._doc
         res
             .cookie("access_token", token, {
-                httpOnly: true,
+                withCredentials:true,
+                httpOnly: false,
+                maxAge:maxAge*1000,
             })
             .status(200)
             .json({ ...otherDetails })

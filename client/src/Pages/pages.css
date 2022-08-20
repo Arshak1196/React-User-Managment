@@ -5,3 +5,7 @@
     margin-bottom: 10vh;
 }
 
+.userHome{
+    background: linear-gradient(to bottom, #000000 3%, #cc6600 97%);
+    min-height: 100vh;
+}

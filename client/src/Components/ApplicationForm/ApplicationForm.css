@@ -1,0 +1,10 @@
+.form-container{
+    min-height: 100vh;
+    background-color: #e6e6e6;
+    color: black;
+    padding-top: 60px;
+}
+
+.required-mark{
+    color:red
+}

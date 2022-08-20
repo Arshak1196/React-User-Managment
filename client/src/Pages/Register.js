@@ -12,7 +12,7 @@ function Register() {
         <h2 className='loginHeader'>Register</h2>
           <Row>
             <Col md={6}>
-              <img style={{'marginBottom':'50px','max-width':'100%','height':'auto'}} alt='login' src={process.env.REACT_APP_LOGIN_IMAGE} />
+              <img style={{'marginBottom':'50px','maxWidth':'100%','height':'auto'}} alt='login' src={process.env.REACT_APP_LOGIN_IMAGE} />
             </Col>
             <Col md={6} ><RegisterForm/></Col>
           </Row>

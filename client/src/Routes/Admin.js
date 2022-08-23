@@ -1,14 +1,14 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Login from '../Pages/Login'
-import Users from '../Pages/AdminHome'
+import AdminHome from '../Pages/Admin/AdminHome'
 
 function Admin() {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Login name="Admin"/>}/>
-        <Route path='/users' element={<Users/>} />
+        <Route path='/login' element={<Login name="Admin"/>}/>
+        <Route path='/*' element={<AdminHome/>} />
       </Routes>
     </div>
   )

@@ -25,7 +25,7 @@ module.exports.verifyAdmin=(req,res,next)=>{
 module.exports.verifyUser=(req,res,next)=>{
     this.verifyToken(req,res,()=>{
         if(req.user){
-            res.status(200).json({status:true})
+            next()
         }else{
             return next(createError(403,'You are not authorized'));
         }

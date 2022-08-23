@@ -1,0 +1,15 @@
+  .sidebar{
+    background-color: black;
+    min-height: 100vh;
+    color: white;
+  }
+  .logo{
+    margin-top: 15px;
+    max-width: 160px;
+  }
+  .sidebar-links{
+    color: blue;
+  }
+  .headbar{
+    background-color: transparent;
+  }

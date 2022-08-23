@@ -15,7 +15,7 @@ function NavBar(props) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end mx-5 px-4">
                     <Nav >
-                        <NavDropdown title={user.name} id="basic-nav-dropdown" >
+                        <NavDropdown title={user.name} id="basic-nav-dropdown" > 
                             <NavDropdown.Item  onClick={props.logout}>Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

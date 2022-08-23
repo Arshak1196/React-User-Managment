@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import './ApplicationForm.css'
+import { AuthContext } from '../../Context/AuthContext';
+import axios from 'axios';
 
 
 function ApplicationForm() {
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = (data) => {
-        console.log(data);
+    const { user } = useContext(AuthContext)
+    const { register, formState: { errors }, handleSubmit } = useForm({defaultValues:{userId:user._id}});  
+    const onSubmit = async (data) => {
+        try {
+            const application=await axios.put('/submitApplication',data);
+            console.log(application)
+
+        } catch (err) {
+            console.log(err)
+            let errdisplay=err.response.data;
+            console.log(errdisplay)
+        }
     };
 
     return (
@@ -67,49 +78,49 @@ function ApplicationForm() {
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>Describe Your Team and Background<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques1", { required: true })}/>
-                                {errors.ques1?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("teamAndBackground", { required: true })}/>
+                                {errors.teamAndBackground?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>Describe Your Company and Products<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques2", { required: true })}/>
-                                {errors.ques2?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("companyAndProduct", { required: true })}/>
+                                {errors.companyAndProduct?.type === 'required' && <p className="required-mark">This field is required</p>}
 
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>Describe the problem you are trying to solve<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques3", { required: true })}/>
-                                {errors.ques3?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("problem", { required: true })}/>
+                                {errors.ques3?.problem === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>What is unique about your solution?<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques4", { required: true })}/>
-                                {errors.ques4?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("solution", { required: true })}/>
+                                {errors.solution?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>What is your value proposition for the customer?<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques5", { required: true })}/>
-                                {errors.ques5?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("propositionToCustomer", { required: true })}/>
+                                {errors.propositionToCustomer?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>What are your competitors and what is your competative advantage?<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques6", { required: true })}/>
-                                {errors.ques6?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("cometativeAdvantage", { required: true })}/>
+                                {errors.cometativeAdvantage?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>Explain your revenue model<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques7", { required: true })}/>
-                                {errors.ques7?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("revenueModel", { required: true })}/>
+                                {errors.revenueModel?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>What is the potential market size of the product?<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques8", { required: true })}/>
-                                {errors.ques8?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("potentialMarket", { required: true })}/>
+                                {errors.potentialMarket?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>How do you market or plan to market your product and services?<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques9", { required: true })}/>
-                                {errors.ques9?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("marketPlan", { required: true })}/>
+                                {errors.marketPlan?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>Type of incubation needed<span className="required-mark">*</span></Form.Label>
@@ -119,8 +130,8 @@ function ApplicationForm() {
                             </Col>
                             <Col md={12} className="mt-3">
                                 <Form.Label>Upload a detailed business proposal<span className="required-mark">*</span></Form.Label>
-                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("ques10", { required: true })}/>
-                                {errors.ques10?.type === 'required' && <p className="required-mark">This field is required</p>}
+                                <Form.Control as="textarea" style={{ height: '100px' }} {...register("businessProposal", { required: true })}/>
+                                {errors.businessProposal?.type === 'required' && <p className="required-mark">This field is required</p>}
                             </Col>
                             <Col className="my-4 text-center">
                                 <Button type="submit" variant="warning">Submit</Button>

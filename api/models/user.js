@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     name:{
         type:String,
-        requires:[true,'Email is required'],
+        requires:[true,'Name is required'],
         unique:true
     },
     email:{
         type:String,
-        required:[true,'Password is required'],
+        required:[true,'Email is required'],
         unique:true
     },
     mobile:{
@@ -24,6 +24,9 @@ const UserSchema = new Schema({
     isAdmin:{
         type:Boolean,
         default:false
+    },
+    application:{
+        type:Object
     }
 },{timestamps:true})
 

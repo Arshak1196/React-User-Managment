@@ -5,10 +5,11 @@ import useFetch from '../../Hooks/useFetch'
 import ViewForm from '../ViewForm/ViewForm';
 
 function NewApplication() {
-    const { data, loading, error } = useFetch('/admin/forms/new');
+    const { data,reFetch } = useFetch('/admin/forms/new');
     const handleNew=async(id)=>{
         try {
             await axios.put('/admin/pending',{id})
+            reFetch()
         } catch (err) {
             console.log(err)
         }

@@ -10,13 +10,13 @@ import ApplicationForm from '../Components/ApplicationForm/ApplicationForm'
 function UserHome() {
   const navigate=useNavigate()
   const [cookies,setCookie,removeCookie]=useCookies([])
+  console.log(setCookie)
   useEffect(()=>{
     const verifyUser=async ()=>{
       if(!cookies.access_token){
         navigate('/login')
       }else{
         try {
-          console.log(1212)
           const data=await axios.post('/',{},{withCredentials:true})
           console.log(data)
           if(!data.status){

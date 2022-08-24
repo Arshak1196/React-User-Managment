@@ -1,10 +1,13 @@
 import React from 'react'
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+
 import useFetch from '../../Hooks/useFetch'
+import AppProgressBar from '../AppProgressBar/AppProgressBar';
 
 function RecordList() {
 
-    const { data, loading, error } = useFetch('/admin/forms/new');
+    const { data, loading, error } = useFetch('/admin/allforms');
+   
     return (
         <div>
             <h2 className="">RECORD LIST</h2>
@@ -12,10 +15,14 @@ function RecordList() {
                 <thead>
                     <tr>
                         <th>S.no</th>
-                        <th>Company Name</th> 
+                        <th>Company Name</th>
                         <th>Company Details</th>
-                        <th></th>
-                        <th></th>
+                        <th className='d-flex justify-content-around'>
+                            <span>Registration Approved</span>
+                            <span>Under Process</span>
+                            <span>Approved</span>
+                        </th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -27,10 +34,7 @@ function RecordList() {
                                     <td>{obj.application.companyName}</td>
                                     <td>{obj.application.city},{obj.application.state}</td>
                                     <td>
-                                      <Button  variant="warning">Pending</Button>
-                                    </td>
-                                    <td>
-                                        <Button  variant="warning">Pending</Button>
+                                        <AppProgressBar progress={obj.application.status}/>
                                     </td>
                                 </tr>
                             )

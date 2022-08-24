@@ -1,13 +1,30 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { Table, Button, Modal } from 'react-bootstrap';
 import useFetch from '../../Hooks/useFetch'
 import ViewForm from '../ViewForm/ViewForm';
 
 function PendingApplication() {
-    const { data, loading, error } = useFetch('/admin/forms/pending');
+    const { data,reFetch } = useFetch('/admin/forms/pending');
     const [show, setShow] = useState(false);
     function handleShow(breakpoint) {
         setShow(true);
+    }
+    const handleApprove=async(id)=>{
+        try {
+            await axios.put('/admin/approve',{id})
+            reFetch()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    const handleDecline=async(id)=>{
+        try {
+            await axios.put('/admin/decline',{id})
+            reFetch()
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -36,10 +53,10 @@ function PendingApplication() {
                                         <ViewForm {...obj.application} />
                                     </td>
                                     <td>
-                                        <Button variant="light">Approve</Button>
+                                        <Button variant="light" onClick={()=>handleApprove(obj._id)}>Approve</Button>
                                     </td>
                                     <td>
-                                        <Button variant="secondary">Decline</Button>
+                                        <Button variant="secondary" onClick={()=>handleDecline(obj._id)}>Decline</Button>
                                     </td>
                                 </tr>
                             )

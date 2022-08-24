@@ -76,8 +76,7 @@ module.exports.submitForm = async (req, res, next) => {
         incubation:req.body.incubation,
         businessProposal:req.body.businessProposal,
         status:"new",
-        application:true
-        
+        application:true,
     }
     try {
         const isform =await User.findOne({_id:req.body.userId,'application.application':true})

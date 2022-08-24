@@ -4,7 +4,7 @@ import PendingApplication from '../../Components/PendingApplication/PendingAppli
 
 function ApplicantList() {
     return (
-        <div>
+        <div style={{'minHeight':'80vh'}}>
             <NewApplication/>
             <PendingApplication/>
         </div>

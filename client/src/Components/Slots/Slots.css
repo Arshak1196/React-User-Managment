@@ -1,0 +1,10 @@
+.emptyslot{
+    background-color: orange;
+    width: fit-content;
+    height: 100px;
+}
+.bookedslot{
+    background-color: gray;
+    width: fit-content;
+    height: 100px;
+}

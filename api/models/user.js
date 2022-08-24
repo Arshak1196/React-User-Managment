@@ -27,6 +27,13 @@ const UserSchema = new Schema({
     },
     application:{
         type:Object
+    },
+    slots:{
+        type:Array
+    },
+    isSlotAlloted:{
+        type:Boolean,
+        default:false
     }
 },{timestamps:true})
 

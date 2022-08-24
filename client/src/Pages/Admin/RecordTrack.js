@@ -3,7 +3,7 @@ import RecordList from '../../Components/RecordList/RecordList'
 
 function RecordTrack() {
   return (
-    <div>
+    <div style={{'minHeight':'80vh'}}>
       <RecordList/>
     </div>
   )

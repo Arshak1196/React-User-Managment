@@ -123,17 +123,20 @@ module.exports.getAllSlots = async (req, res, next) => {
 module.exports.bookSlot = async (req, res, next) => {
     const slotid=parseInt(req.body.slot)
     try {
-        console.log(req.body)
-        await User.updateOne({ "isAdmin": true, "slots.id": slotid }, {
-            $set: {
-                "slots.$.isBooked": true,
-                "slots.$.applicantId":req.body.application,
-            }
-        })
-        await User.updateOne({_id:req.body.application},{
-            $set:{isSlotAlloted:true}
-        })
-        res.status(200).json("setted")
+        if(req.body.application){
+            await User.updateOne({ "isAdmin": true, "slots.id": slotid }, {
+                $set: {
+                    "slots.$.isBooked": true,
+                    "slots.$.applicantId":req.body.application,
+                }
+            })
+            await User.updateOne({_id:req.body.application},{
+                $set:{isSlotAlloted:true}
+            })
+            res.status(200).json("Slot Booked")
+        }else{
+            res.status(400).json("Something went wrong")
+        }
     } catch (err) {
         next(err)
     }

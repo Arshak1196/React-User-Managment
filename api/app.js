@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 //routes
 const usersRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
-const authRouter = require('./routes/auth')
 
 const port = process.env.port || 8000
 
@@ -34,7 +33,6 @@ app.use(express.json())
 
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
-app.use('/auth', authRouter);
  
 //errorHandling
 app.use((err, req, res, next) => {

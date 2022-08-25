@@ -17,6 +17,10 @@ module.exports.doSignup = async (req, res, next) => {
         await newUser.save()
         res.status(200).json('User created')
     } catch (err) {
+        if(err=='Error: Illegal arguments: undefined, string'){
+            err.message='Please fill all the fields'
+            return next(createError(400,err.message))
+        }
         if (err.code === 11000) {
             err.message = 'Email or Mobile number is already registered'
             return next(createError(400, err.message))
@@ -31,7 +35,7 @@ module.exports.doLogin = async (req, res, next) => {
             return next(createError(404, 'User not found'))
         const isPasswordcorrect = await bcrypt.compare(req.body.password, user.password)
         if (!isPasswordcorrect)
-            return next(createError(400, 'wrong password or username'))
+            return next(createError(400, 'Wrong password or username'))
         const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_KEY, {
             expiresIn: maxAge,
         })
@@ -43,7 +47,7 @@ module.exports.doLogin = async (req, res, next) => {
                 maxAge: maxAge * 1000,
             })
             .status(200)
-            .json({ ...otherDetails })
+            .json({ ...otherDetails,token })
     } catch (err) {
         next(err)
     }

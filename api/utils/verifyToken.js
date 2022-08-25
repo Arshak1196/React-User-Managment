@@ -31,3 +31,16 @@ module.exports.verifyUser=(req,res,next)=>{
         }
     })
 }
+
+module.exports.protect=async(req,res,next)=>{
+    let token
+    if(req.headers.authorization && req.headers.authorization.startWith('Bearer')){
+        try {
+            token=req.headers.authorization.split(' ')[1]
+            const decoded = jwt.verify(token,process.env.JWT_KEY )
+            
+        } catch (err) {
+            next()
+        }
+    }
+}

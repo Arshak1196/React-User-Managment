@@ -5,11 +5,12 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import useFetch from '../../Hooks/useFetch'
+import { ToastContainer, toast } from 'react-toastify';
 import './Slots.css'
 import axios from 'axios';
 
 function Slots() {
-    const { data,reFetch } = useFetch('/admin/slots/getslots')
+    const { data, reFetch } = useFetch('/admin/slots/getslots')
     const [form, setForm] = useState([])
     const [slotid, setSlot] = useState()
     const [show, setShow] = useState(false);
@@ -37,17 +38,21 @@ function Slots() {
     const onSubmit = async (data) => {
         handleClose()
         try {
-            await axios.put('/admin/slots/bookslot', data)
+            const response = await axios.put('/admin/slots/bookslot', data)
+            console.log(response.data)
+            toast.success(response.data, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
             reFetch()
             approvedForms()
         } catch (err) {
             console.log(err)
+            toast.warn(err.response.data, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
         }
         console.log(data)
     }
-    
-
-
 
     return (
         <div>
@@ -85,7 +90,7 @@ function Slots() {
                                 )
                             })}
                         </Form.Select>
-                        <input type="text" value={slotid} {...register("slot")} checked hidden/>
+                        <input type="text" value={slotid} {...register("slot")} checked hidden />
 
                     </Modal.Body>
                     <Modal.Footer>
@@ -98,7 +103,7 @@ function Slots() {
                     </Modal.Footer>
                 </Modal>
             </Row>
-
+            <ToastContainer />
         </div>
     )
 }
